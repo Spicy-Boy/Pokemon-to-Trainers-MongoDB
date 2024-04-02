@@ -7,7 +7,7 @@ async function getAllTrainers(req, res)
         let results = await Trainer.find({});
 
         res.json({
-            message: "Getting trainers SUCCEEDED!",
+            message: "SUCCESS!",
             payload: results
         })
     } catch (error)
@@ -23,15 +23,43 @@ async function getAllTrainers(req, res)
     }
 }
 
-async function createTrainer(req, res)
+//GETS trainer by NAME
+async function getOneTrainer(req, res)
+{
+    try
+    {
+        let result = await Trainer.findOne({Name: req.params.name});
+
+        res.json({
+            message: "SUCCESS!",
+            payload: result
+        })
+    }catch (error){
+        let errorObj = {
+            message: "Getting single trainer FAILED!",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
+async function createOneTrainer(req, res)
 {
     try 
     {
-        await Trainer.create(req.body);
+        let newTrainer = {
+            Name: req.body.Name,
+            HomeTown: req.body.HomeTown
+        }
+
+        await Trainer.create(newTrainer);
 
         res.json({
             message: "Creating trainer SUCCEEDED!",
-            payload: results
+            payload: newTrainer
         })
     } catch (error)
     {
@@ -47,6 +75,7 @@ async function createTrainer(req, res)
 }
 
 module.exports = {
-    createTrainer,
-    getAllTrainers
+    createOneTrainer,
+    getAllTrainers,
+    getOneTrainer
 }

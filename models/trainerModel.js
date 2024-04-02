@@ -4,18 +4,21 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const trainerSchema = new mongoose.Schema(
     {
-        name: {
+        Name: {
             type: String,
             required: true,
             unique: true
+        },
+        HomeTown: {
+            type: String,
+            required: true
+        },
+        PokemonInParty: {
+            type: [{
+                type: ObjectId,
+                ref: "pokemon"
+            }]
         }
-        // ,
-        // ownedPokemon: {
-        //     type: [{
-        //         type: ObjectId,
-        //         ref: "pokemons"
-        //     }]
-        // }
     },
     {
         timestamps: true
