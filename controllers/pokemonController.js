@@ -81,7 +81,7 @@ async function deleteOnePokemon(req, res)
     {
         await Pokemon.deleteOne({Name: req.params.name});
 
-        res.redirect("/pokemon");
+        res.redirect("/pokemon"); // send user back to pokemon index
 
         // res.json({
         //     message: "SUCCESS!",
@@ -99,9 +99,46 @@ async function deleteOnePokemon(req, res)
     }
 }
 
+async function updateOnePokemon(req, res)
+{
+    try
+    {
+        let targetPokemon = await Pokemon.findOne({Name: req.params.name});
+        let updatedPokemon = {
+            //epic ternary checks if the form was left empty (null is falsy)
+            PokedexNo: req.body.PokedexNo ? req.body.PokedexNo : targetPokemon.PokedexNo,
+            Name: req.body.Name ? req.body.Name : targetPokemon.Name,
+            Type: req.body.Type.split(", ") ? req.body.Type.split(", ") : targetPokemon.Type,
+            Moves: req.body.Moves ? req.body.Moves.split(", ") : targetPokemon.Moves
+        };
+
+        await Pokemon.updateOne(
+            {Name: req.params.name},
+            {$set: updatedPokemon},
+            {upsert: true}
+        );
+
+        res.redirect("/pokemon/"+updatedPokemon.Name);
+        // res.json({
+        //     message: "SUCCESS!",
+        //     payload: `Deleted: ${req.params.name}`
+        // })
+    }catch (error){
+        let errorObj = {
+            message: "Updating a single pokemon FAILED!",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
 module.exports = {
     getAllPokemon,
     getOnePokemon,
     createOnePokemon,
-    deleteOnePokemon
+    deleteOnePokemon,
+    updateOnePokemon
 }

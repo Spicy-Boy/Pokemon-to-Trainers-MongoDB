@@ -19,6 +19,7 @@ router.get("/trainers/:name", getOneTrainerPage);
 
 router.get("/pokemon/:name", getOnePokemonPage);
 
+//localhost:8080/createPokemon
 router.get("/createPokemon", getCreatePokemonForm);
 
 module.exports = router;
