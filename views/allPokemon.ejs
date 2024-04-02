@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head") %>
+<body>
+    <h1>~ALL POKEMON~</h1>
+    <a href="/pokemon"><h2>HOME</h2></a>
+    <br>
+
+    <% pokemon.forEach((mon)=>{ %>
+        <h2>Pokedex No. <%=mon.PokedexNo%></h2>
+        <a href="/pokemon/<%=mon.Name%>"><%=mon.Name%></a>
+    <%})%>
+</body>
+</html>

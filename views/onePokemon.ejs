@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head") %>
+<body>
+    <h1>Pokedex Entry: <%=pokemon.Name%></h1>
+    <a href="/pokemon"><h2>BACK TO INDEX</h2></a>
+    <br>
+
+    <h2>Pokedex No. <%=pokemon.PokedexNo%></h2>
+    <h2>Name: <%=pokemon.Name%></h2>
+    <h3>Type: </h3>
+    <ul>
+        <% pokemon.Type.forEach((type) => { %>
+            <li><%=type%></li>
+        <%})%>
+    </ul>
+
+    <h3>Moves: </h3>
+    <ul>
+        <% pokemon.Moves.forEach((move) => { %>
+            <li><%=move%></li>
+        <%})%>
+    </ul>
+</body>
+</html>
