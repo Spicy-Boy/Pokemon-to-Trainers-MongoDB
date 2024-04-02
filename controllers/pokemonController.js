@@ -108,7 +108,7 @@ async function updateOnePokemon(req, res)
             //epic ternary checks if the form was left empty (null is falsy)
             PokedexNo: req.body.PokedexNo ? req.body.PokedexNo : targetPokemon.PokedexNo,
             Name: req.body.Name ? req.body.Name : targetPokemon.Name,
-            Type: req.body.Type.split(", ") ? req.body.Type.split(", ") : targetPokemon.Type,
+            Type: req.body.Type ? req.body.Type.split(", ") : targetPokemon.Type,
             Moves: req.body.Moves ? req.body.Moves.split(", ") : targetPokemon.Moves
         };
 

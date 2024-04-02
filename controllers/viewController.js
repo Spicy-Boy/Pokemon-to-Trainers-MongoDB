@@ -73,11 +73,29 @@ function getCreatePokemonForm(req, res) {
     res.render("createPokemon");
 }
 
+async function getUpdatePokemonForm(req, res){
+    try{
+        let result = await Pokemon.findOne({Name: req.params.name});
+
+        res.render("updatePokemon", {pokemon: result});
+    }catch(error){
+        let errorObj = {
+            message: "getUpdatePokemonForm failed",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
 module.exports = {
     getHomePage,
     getTrainersPage,
     getPokemonPage,
     getOneTrainerPage,
     getOnePokemonPage,
-    getCreatePokemonForm
+    getCreatePokemonForm,
+    getUpdatePokemonForm
 };

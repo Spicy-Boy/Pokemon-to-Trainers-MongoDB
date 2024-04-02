@@ -6,7 +6,8 @@ const {
     getPokemonPage,
     getOneTrainerPage,
     getOnePokemonPage,
-    getCreatePokemonForm
+    getCreatePokemonForm,
+    getUpdatePokemonForm
 } = require("../controllers/viewController");
 
 router.get("/", getHomePage);
@@ -21,5 +22,7 @@ router.get("/pokemon/:name", getOnePokemonPage);
 
 //localhost:8080/createPokemon
 router.get("/createPokemon", getCreatePokemonForm);
+
+router.get("/updatePokemon/:name", getUpdatePokemonForm)
 
 module.exports = router;

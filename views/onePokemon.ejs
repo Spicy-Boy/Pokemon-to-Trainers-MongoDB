@@ -22,9 +22,15 @@
         <%})%>
     </ul>
 
+    <!-- update button -->
+    <a href="/updatePokemon/<%=pokemon.Name%>">Edit this entry</a>
+
+    <br><br>
+    
     <!-- DELETE BUTTON vvv -->
     <form action="/api/pokemon/deletePokemon/<%=pokemon.Name%>?_method=DELETE" method="post">
         <input type="submit" name="_method" value="DELETE THIS POKEMON">
     </form>
+
 </body>
 </html>
