@@ -69,10 +69,15 @@ async function getOnePokemonPage(req,res) {
     }
 }
 
+function getCreatePokemonForm(req, res) {
+    res.render("createPokemon");
+}
+
 module.exports = {
     getHomePage,
     getTrainersPage,
     getPokemonPage,
     getOneTrainerPage,
-    getOnePokemonPage
+    getOnePokemonPage,
+    getCreatePokemonForm
 };
