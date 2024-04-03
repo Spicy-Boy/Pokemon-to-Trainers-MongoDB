@@ -22,10 +22,41 @@
         <%})%>
     </ul>
 
+    <!-- List of OTs, trainers that have this Pokemon -->
+    <h2>Owned by:</h2>
+    <ul>
+        <%trainers.forEach( (trainer) => { %>
+
+            <%if (pokemon.OwnedBy.includes(trainer._id)) {%>
+                <li><%=trainer.Name%></li>
+            <%}%>
+
+        <%})%>
+    </ul>
+
+    <br>
+    <br>
+
+    <form action="/api/pokemon/attachTrainerToPokemon/<%=pokemon.Name%>?_method=PUT" method="post">
+        <select name="id">
+            <%trainers.forEach( (trainer) => { %>
+                <%if (!trainer.PokemonInParty.includes(pokemon._id)) {%>
+                    <option value="<%=trainer._id%>"><%=trainer.Name%></option>
+                <%}%>
+            <%})%>
+        </select>
+
+        <input type="submit" value="Catch Pokemon!">
+    </form>
+
+    <br>
+    <br>
+
     <!-- update button -->
     <a href="/updatePokemon/<%=pokemon.Name%>">Edit this entry</a>
 
-    <br><br>
+    <br>
+    <br>
     
     <!-- DELETE BUTTON vvv -->
     <form action="/api/pokemon/deletePokemon/<%=pokemon.Name%>?_method=DELETE" method="post">

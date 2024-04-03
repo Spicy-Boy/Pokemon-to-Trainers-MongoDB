@@ -72,7 +72,9 @@ async function getOnePokemonPage(req,res) {
     {
         let results = await Pokemon.findOne({Name: req.params.name});
 
-        res.render("onePokemon", {pokemon: results});
+        let allTrainers = await Trainer.find({})
+
+        res.render("onePokemon", {pokemon: results, trainers: allTrainers});
     } 
     catch (error)
     {

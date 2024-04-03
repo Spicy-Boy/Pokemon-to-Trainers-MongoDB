@@ -1,4 +1,5 @@
 const Pokemon = require("../models/pokemonModel");
+const Trainer = require("../models/trainerModel");
 
 async function getAllPokemon(req, res)
 {
@@ -135,10 +136,55 @@ async function updateOnePokemon(req, res)
     }
 }
 
+async function attachTrainerToPokemon(req, res)
+{
+    try
+    {
+        let targetPokemon = await Pokemon.findOne({Name: req.params.name});
+
+        let targetTrainer = await Trainer.findOne({_id: req.body.id});
+
+        console.log(":D pokemon:",targetPokemon);
+        console.log("O_O trainer:",targetTrainer);
+
+        if (!targetPokemon.OwnedBy)
+        {
+            targetPokemon.OwnedBy = [];
+        }
+        if (!targetTrainer.PokemonInParty)
+        {
+            targetTrainer.PokemonInParty = [];
+        }
+
+        targetPokemon.OwnedBy.addToSet(targetTrainer._id);
+        await targetPokemon.save();
+
+        targetTrainer.PokemonInParty.addToSet(targetPokemon._id);
+        await targetTrainer.save();
+
+        res.redirect("/pokemon/"+targetPokemon.Name);
+
+        // res.json({
+        //     message: "SUCCESS!",
+        //     payload: `Deleted: ${req.params.name}`
+        // })
+    }catch (error){
+        let errorObj = {
+            message: "Attaching trainer to pokemon FAILURE!",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
 module.exports = {
     getAllPokemon,
     getOnePokemon,
     createOnePokemon,
     deleteOnePokemon,
-    updateOnePokemon
+    updateOnePokemon,
+    attachTrainerToPokemon
 }

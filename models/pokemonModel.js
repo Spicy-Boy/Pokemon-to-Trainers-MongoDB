@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
 const pokemonSchema = new mongoose.Schema(
     {
         PokedexNo: {
@@ -21,7 +23,11 @@ const pokemonSchema = new mongoose.Schema(
             {
                 type: String
             }
-        ]
+        ],
+        OwnedBy: [{
+            type: ObjectId,
+            ref: "trainers"
+        }]
     }
 );
 
