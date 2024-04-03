@@ -6,6 +6,8 @@ async function getAllTrainers(req, res)
     {
         let results = await Trainer.find({});
 
+        // res.render("allTrainers", {trainers: results});
+
         res.json({
             message: "SUCCESS!",
             payload: results
@@ -57,14 +59,44 @@ async function createOneTrainer(req, res)
 
         await Trainer.create(newTrainer);
 
+        res.redirect(`/trainers/${newTrainer.Name}`)
+
+        // res.json({
+        //     message: "Creating trainer SUCCEEDED!",
+        //     payload: newTrainer
+        // })
+    } catch (error)
+    {
+        let errorObj = {
+            message: "Creating trainer FAILED!",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
+async function deleteOneTrainer(req, res)
+{
+    try 
+    {
+        let newTrainer = {
+            Name: req.body.Name,
+            HomeTown: req.body.HomeTown
+        }
+
+        await Trainer.create(newTrainer);
+
         res.json({
-            message: "Creating trainer SUCCEEDED!",
+            message: "Deleting trainer SUCCEEDED!",
             payload: newTrainer
         })
     } catch (error)
     {
         let errorObj = {
-            message: "Creating trainer FAILED!",
+            message: "Deleting trainer FAILED!",
             payload: error
         }
 
@@ -79,3 +111,15 @@ module.exports = {
     getAllTrainers,
     getOneTrainer
 }
+
+// UPDATE AND DELETE trainers ejs html 
+
+// <!-- update button -->
+// <a href="/updateTrainer/<%=trainer.Name%>">Edit this entry</a>
+
+// <br><br>
+
+// <!-- DELETE BUTTON vvv -->
+// <form action="/api/pokemon/deleteTrainer/<%=trainer.Name%>?_method=DELETE" method="post">
+//     <input type="submit" name="_method" value="DELETE THIS TRAINER">
+// </form>

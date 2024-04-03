@@ -12,13 +12,13 @@ const trainerSchema = new mongoose.Schema(
         HomeTown: {
             type: String,
             required: true
-        },
-        PokemonInParty: {
-            type: [{
-                type: ObjectId,
-                ref: "pokemon"
-            }]
         }
+        // PokemonInParty: {
+        //     type: [{
+        //         type: ObjectId,
+        //         ref: "pokemon"
+        //     }]
+        // }
     },
     {
         timestamps: true

@@ -10,7 +10,9 @@ function getHomePage(req, res)
 async function getTrainersPage(req, res) {
     try
     {
-        res.send("trainer page!");
+        let results = await Trainer.find({});
+
+        res.render("allTrainers", {trainers: results});
     } 
     catch (error)
     {
@@ -46,7 +48,23 @@ async function getPokemonPage(req,res) {
 }
 
 async function getOneTrainerPage(req,res) {
-    
+    try
+    {
+        let results = await Trainer.findOne({Name: req.params.name});
+
+        res.render("oneTrainer", {trainer: results});
+    } 
+    catch (error)
+    {
+        let errorObj = {
+            message: "getTrainersPage failed",
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
 }
 
 async function getOnePokemonPage(req,res) {
@@ -90,6 +108,10 @@ async function getUpdatePokemonForm(req, res){
     }
 }
 
+function getCreateTrainerForm(req, res) {
+    res.render("createTrainer");
+}
+
 module.exports = {
     getHomePage,
     getTrainersPage,
@@ -97,5 +119,6 @@ module.exports = {
     getOneTrainerPage,
     getOnePokemonPage,
     getCreatePokemonForm,
-    getUpdatePokemonForm
+    getUpdatePokemonForm,
+    getCreateTrainerForm
 };

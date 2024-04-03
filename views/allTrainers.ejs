@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head") %>
+<body>
+    <h1>~ALL TRAINERS~</h1>
+    <a href="/"><h2>HOME</h2></a>
+    <br>
+    <a href="/createTrainer"><h2>Create a new Trainer</h2></a>
+    <br>
+
+    <% trainers.forEach((trainer)=>{ %>
+        <a href="/trainers/<%=trainer.Name%>"><%=trainer.Name%></a>
+        <br>
+    <%})%>
+</body>
+</html>
