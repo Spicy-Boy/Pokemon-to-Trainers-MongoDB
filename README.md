@@ -1,0 +1,1 @@
+My first MongoDB database. Using ejs to dynamically assemble html, I connect a pokemon database with trainers. Almost all CRUD functionality present for uploading and editing trainer and pokemon data.
